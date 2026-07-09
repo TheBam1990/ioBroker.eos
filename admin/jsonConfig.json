@@ -1,0 +1,354 @@
+{
+  "type": "tabs",
+  "i18n": true,
+  "items": {
+    "install": {
+      "type": "panel",
+      "label": {
+        "en": "Installation",
+        "de": "Installation"
+      },
+      "items": {
+        "enabled": {
+          "type": "checkbox",
+          "label": {
+            "en": "Enable adapter",
+            "de": "Adapter aktivieren"
+          },
+          "xs": 12,
+          "sm": 6
+        },
+        "installMode": {
+          "type": "select",
+          "label": {
+            "en": "EOS mode",
+            "de": "EOS-Modus"
+          },
+          "options": [
+            {
+              "label": "Managed source/Python installation",
+              "value": "managed-source"
+            },
+            {
+              "label": "Managed Docker installation",
+              "value": "managed-docker"
+            },
+            {
+              "label": "External EOS server",
+              "value": "external"
+            }
+          ],
+          "xs": 12,
+          "sm": 6
+        },
+        "autoInstall": {
+          "type": "checkbox",
+          "label": {
+            "en": "Install EOS container automatically",
+            "de": "EOS-Container automatisch installieren"
+          },
+          "xs": 12,
+          "sm": 6
+        },
+        "autoStart": {
+          "type": "checkbox",
+          "label": {
+            "en": "Start EOS automatically",
+            "de": "EOS automatisch starten"
+          },
+          "xs": 12,
+          "sm": 6
+        },
+        "dockerImage": {
+          "type": "text",
+          "label": {
+            "en": "Docker image",
+            "de": "Docker-Image"
+          },
+          "xs": 12,
+          "sm": 6
+        },
+        "dockerContainerName": {
+          "type": "text",
+          "label": {
+            "en": "Container name",
+            "de": "Container-Name"
+          },
+          "xs": 12,
+          "sm": 6
+        },
+        "sourceRepo": {
+          "type": "text",
+          "label": {
+            "en": "EOS Git repository",
+            "de": "EOS Git-Repository"
+          },
+          "xs": 12,
+          "sm": 6
+        },
+        "sourceDirectory": {
+          "type": "text",
+          "label": {
+            "en": "EOS source directory",
+            "de": "EOS Source-Verzeichnis"
+          },
+          "xs": 12,
+          "sm": 6
+        },
+        "pythonCommand": {
+          "type": "text",
+          "label": {
+            "en": "Python command",
+            "de": "Python-Befehl"
+          },
+          "help": {
+            "en": "Used for managed source installation. Python 3.11 or newer is required by EOS.",
+            "de": "Wird fuer die verwaltete Source-Installation genutzt. EOS benoetigt Python 3.11 oder neuer."
+          },
+          "xs": 12,
+          "sm": 6
+        },
+        "apiPort": {
+          "type": "number",
+          "label": {
+            "en": "Local API port",
+            "de": "Lokaler API-Port"
+          },
+          "min": 1,
+          "max": 65535,
+          "xs": 12,
+          "sm": 6
+        },
+        "dashboardPort": {
+          "type": "number",
+          "label": {
+            "en": "Local dashboard port",
+            "de": "Lokaler Dashboard-Port"
+          },
+          "min": 1,
+          "max": 65535,
+          "xs": 12,
+          "sm": 6
+        },
+        "baseUrl": {
+          "type": "text",
+          "label": {
+            "en": "External EOS API URL",
+            "de": "Externe EOS API URL"
+          },
+          "help": {
+            "en": "Used in external mode, for example http://192.168.2.10:8503.",
+            "de": "Wird im externen Modus genutzt, zum Beispiel http://192.168.2.10:8503."
+          },
+          "xs": 12,
+          "sm": 12
+        }
+      }
+    },
+    "polling": {
+      "type": "panel",
+      "label": {
+        "en": "Polling",
+        "de": "Polling"
+      },
+      "items": {
+        "pollIntervalSec": {
+          "type": "number",
+          "label": {
+            "en": "Polling interval seconds",
+            "de": "Polling-Intervall Sekunden"
+          },
+          "min": 10,
+          "xs": 12,
+          "sm": 6
+        },
+        "requestTimeoutMs": {
+          "type": "number",
+          "label": {
+            "en": "Request timeout ms",
+            "de": "Request-Timeout ms"
+          },
+          "min": 1000,
+          "xs": 12,
+          "sm": 6
+        },
+        "pollHealth": {
+          "type": "checkbox",
+          "label": {
+            "en": "Poll health",
+            "de": "Health abrufen"
+          },
+          "xs": 12,
+          "sm": 4
+        },
+        "pollPlan": {
+          "type": "checkbox",
+          "label": {
+            "en": "Poll energy plan",
+            "de": "Energieplan abrufen"
+          },
+          "xs": 12,
+          "sm": 4
+        },
+        "pollSolution": {
+          "type": "checkbox",
+          "label": {
+            "en": "Poll optimization solution",
+            "de": "Optimierungsloesung abrufen"
+          },
+          "xs": 12,
+          "sm": 4
+        },
+        "pollPredictionKeys": {
+          "type": "checkbox",
+          "label": {
+            "en": "Poll prediction keys",
+            "de": "Prediction-Keys abrufen"
+          },
+          "xs": 12,
+          "sm": 4
+        },
+        "pollMeasurementKeys": {
+          "type": "checkbox",
+          "label": {
+            "en": "Poll measurement keys",
+            "de": "Measurement-Keys abrufen"
+          },
+          "xs": 12,
+          "sm": 4
+        },
+        "autoUpdatePredictions": {
+          "type": "checkbox",
+          "label": {
+            "en": "Trigger prediction update before polling",
+            "de": "Prediction-Update vor Polling ausloesen"
+          },
+          "xs": 12,
+          "sm": 4
+        },
+        "predictionKeys": {
+          "type": "text",
+          "label": {
+            "en": "Prediction keys",
+            "de": "Prediction-Keys"
+          },
+          "help": {
+            "en": "Comma or newline separated keys to retrieve via /v1/prediction/list.",
+            "de": "Komma- oder zeilengetrennte Keys fuer /v1/prediction/list."
+          },
+          "xs": 12,
+          "sm": 6
+        },
+        "measurementKeys": {
+          "type": "text",
+          "label": {
+            "en": "Measurement keys",
+            "de": "Measurement-Keys"
+          },
+          "help": {
+            "en": "Comma or newline separated keys to retrieve via /v1/measurement/series.",
+            "de": "Komma- oder zeilengetrennte Keys fuer /v1/measurement/series."
+          },
+          "xs": 12,
+          "sm": 6
+        }
+      }
+    },
+    "resources": {
+      "type": "panel",
+      "label": {
+        "en": "Resources",
+        "de": "Resources"
+      },
+      "items": {
+        "resourceStatuses": {
+          "type": "table",
+          "label": {
+            "en": "EOS resource statuses",
+            "de": "EOS Resource-Status"
+          },
+          "xs": 12,
+          "sm": 12,
+          "items": [
+            {
+              "attr": "enabled",
+              "type": "checkbox",
+              "title": {
+                "en": "Active",
+                "de": "Aktiv"
+              },
+              "default": true,
+              "width": "70px"
+            },
+            {
+              "attr": "resourceId",
+              "type": "text",
+              "title": {
+                "en": "Resource ID",
+                "de": "Resource ID"
+              },
+              "width": "220px"
+            },
+            {
+              "attr": "actuatorId",
+              "type": "text",
+              "title": {
+                "en": "Actuator ID",
+                "de": "Actuator ID"
+              },
+              "width": "220px"
+            }
+          ]
+        }
+      }
+    },
+    "measurements": {
+      "type": "panel",
+      "label": {
+        "en": "Measurements",
+        "de": "Measurements"
+      },
+      "items": {
+        "measurementMappings": {
+          "type": "table",
+          "label": {
+            "en": "Send ioBroker states to EOS measurements",
+            "de": "ioBroker-Datenpunkte an EOS Measurements senden"
+          },
+          "xs": 12,
+          "sm": 12,
+          "items": [
+            {
+              "attr": "enabled",
+              "type": "checkbox",
+              "title": {
+                "en": "Active",
+                "de": "Aktiv"
+              },
+              "default": true,
+              "width": "70px"
+            },
+            {
+              "attr": "source",
+              "type": "objectId",
+              "title": {
+                "en": "ioBroker state",
+                "de": "ioBroker-Datenpunkt"
+              },
+              "width": "360px"
+            },
+            {
+              "attr": "key",
+              "type": "text",
+              "title": {
+                "en": "EOS measurement key",
+                "de": "EOS Measurement-Key"
+              },
+              "width": "260px"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

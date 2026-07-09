@@ -1,0 +1,50 @@
+{
+  "name": "iobroker.eos",
+  "version": "0.1.13",
+  "description": "ioBroker adapter for Akkudoktor EOS energy manager with managed installation",
+  "author": "TheBam1990",
+  "homepage": "https://github.com/TheBam1990/ioBroker.eos",
+  "license": "MIT",
+  "main": "main.js",
+  "files": [
+    "admin",
+    "io-package.json",
+    "LICENSE",
+    "main.js",
+    "README.md"
+  ],
+  "keywords": [
+    "iobroker",
+    "eos",
+    "akkudoktor",
+    "energy",
+    "pv",
+    "battery",
+    "optimization"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheBam1990/ioBroker.eos.git"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@iobroker/adapter-core": "^3.2.3"
+  },
+  "devDependencies": {
+    "@iobroker/adapter-dev": "^1.5.0",
+    "@iobroker/testing": "^5.2.2",
+    "mocha": "^11.7.0"
+  },
+  "scripts": {
+    "start": "node main.js",
+    "test": "node --check main.js",
+    "lint": "node --check main.js",
+    "test:package": "mocha test/package --exit"
+  },
+  "bugs": {
+    "url": "https://github.com/TheBam1990/ioBroker.eos/issues"
+  },
+  "readmeFilename": "README.md"
+}
