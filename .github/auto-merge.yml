@@ -1,0 +1,5 @@
+rules:
+  - dependency-type: development
+    update-type: minor
+  - dependency-type: development
+    update-type: patch

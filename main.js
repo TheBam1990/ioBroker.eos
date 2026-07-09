@@ -442,7 +442,7 @@ class EosAdapter extends utils.Adapter {
                 PYTHONPATH: [
                     path.join(cfg.sourceDirectory, ".iobroker-deps"),
                     path.join(cfg.sourceDirectory, "src"),
-                    process.env.PYTHONPATH || "",
+                    nodeProcess.env.PYTHONPATH || "",
                 ].filter(Boolean).join(path.delimiter),
             },
             stdio: ["ignore", stdoutHandle.fd, stderrHandle.fd],
