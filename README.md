@@ -255,6 +255,10 @@ Then start the adapter again.
 
 ## Changelog
 
+### 0.1.14
+
+- Add signed npm release workflow, compact mode metadata and checker-compatible integration logs.
+
 ### 0.1.13
 
 - Mark EOS as connected when health is alive and treat unconfigured plan endpoints as optional warnings.
