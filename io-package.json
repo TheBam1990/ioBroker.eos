@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "eos",
-    "version": "0.1.13",
+    "version": "0.1.14",
     "news": {
+      "0.1.14": {
+        "en": "Improved repository compliance with npm provenance release workflow, compact mode metadata and checker-compatible integration logs.",
+        "de": "Verbesserte Repository-Konformitaet mit npm-Provenance-Release-Workflow, Compact-Mode-Metadaten und checkerkompatiblen Integration-Logs.",
+        "ru": "Улучшена совместимость с требованиями репозитория: npm provenance workflow, compact mode metadata и совместимые с checker integration logs.",
+        "pt": "Melhor conformidade do repositorio com workflow de npm provenance, metadados de compact mode e logs de integracao compativeis com o checker.",
+        "nl": "Verbeterde repository-conformiteit met npm provenance workflow, compact mode metadata en checker-compatibele integratielogs.",
+        "fr": "Conformite depot amelioree avec workflow npm provenance, metadonnees compact mode et journaux integration compatibles avec le checker.",
+        "it": "Migliorata la conformita del repository con workflow npm provenance, metadati compact mode e log di integrazione compatibili con il checker.",
+        "es": "Mejor cumplimiento del repositorio con workflow npm provenance, metadatos de compact mode y registros de integracion compatibles con el checker.",
+        "pl": "Poprawiona zgodnosc repozytorium z workflow npm provenance, metadanymi compact mode i logami integracji zgodnymi z checkerem.",
+        "uk": "Покращено відповідність репозиторію: npm provenance workflow, compact mode metadata та сумісні з checker integration logs.",
+        "zh-cn": "改进仓库合规性，加入 npm provenance 发布流程、compact mode 元数据以及兼容 checker 的集成日志。"
+      },
       "0.1.13": {
         "en": "Initial release-ready adapter with managed EOS source installation, dashboard link, health polling and optional energy plan warnings.",
         "de": "Erste releasefertige Adapterversion mit verwalteter EOS-Source-Installation, Dashboard-Link, Health-Polling und optionalen Energieplan-Warnungen.",
