@@ -4,6 +4,7 @@ const { execFile } = require("node:child_process");
 const { spawn } = require("node:child_process");
 const fs = require("node:fs/promises");
 const path = require("node:path");
+const nodeProcess = require("node:process");
 const { promisify } = require("node:util");
 const utils = require("@iobroker/adapter-core");
 
@@ -432,7 +433,7 @@ class EosAdapter extends utils.Adapter {
         ], {
             cwd: cfg.sourceDirectory,
             env: {
-                ...process.env,
+                ...nodeProcess.env,
                 EOS_DIR: cfg.sourceDirectory,
                 EOS_SERVER__HOST: "0.0.0.0",
                 EOS_SERVER__PORT: String(cfg.apiPort),
@@ -528,7 +529,7 @@ class EosAdapter extends utils.Adapter {
 
             this.installProcess = spawn(command, args, {
                 cwd,
-                env: process.env,
+                env: nodeProcess.env,
                 stdio: ["ignore", "pipe", "pipe"],
             });
             this.installProcess.stdout.on("data", append);

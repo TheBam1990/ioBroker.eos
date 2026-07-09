@@ -279,6 +279,8 @@ Then start the adapter again.
 
 - Initial adapter with managed Docker installation and EOS API integration.
 
+Older entries are stored in [CHANGELOG_OLD.md](CHANGELOG_OLD.md).
+
 ## License
 
 MIT

@@ -6,15 +6,15 @@
       "0.1.13": {
         "en": "Initial release-ready adapter with managed EOS source installation, dashboard link, health polling and optional energy plan warnings.",
         "de": "Erste releasefertige Adapterversion mit verwalteter EOS-Source-Installation, Dashboard-Link, Health-Polling und optionalen Energieplan-Warnungen.",
-        "ru": "Initial release-ready adapter with managed EOS source installation, dashboard link, health polling and optional energy plan warnings.",
-        "pt": "Initial release-ready adapter with managed EOS source installation, dashboard link, health polling and optional energy plan warnings.",
-        "nl": "Initial release-ready adapter with managed EOS source installation, dashboard link, health polling and optional energy plan warnings.",
-        "fr": "Initial release-ready adapter with managed EOS source installation, dashboard link, health polling and optional energy plan warnings.",
-        "it": "Initial release-ready adapter with managed EOS source installation, dashboard link, health polling and optional energy plan warnings.",
-        "es": "Initial release-ready adapter with managed EOS source installation, dashboard link, health polling and optional energy plan warnings.",
-        "pl": "Initial release-ready adapter with managed EOS source installation, dashboard link, health polling and optional energy plan warnings.",
-        "uk": "Initial release-ready adapter with managed EOS source installation, dashboard link, health polling and optional energy plan warnings.",
-        "zh-cn": "Initial release-ready adapter with managed EOS source installation, dashboard link, health polling and optional energy plan warnings."
+        "ru": "Первый релизный адаптер с управляемой установкой EOS из исходников, ссылкой на панель, health polling и необязательными предупреждениями плана энергии.",
+        "pt": "Primeira versao pronta para lancamento com instalacao gerenciada do EOS a partir do codigo fonte, link do painel, health polling e avisos opcionais do plano de energia.",
+        "nl": "Eerste releaseklare adapter met beheerde EOS-broninstallatie, dashboardlink, health polling en optionele waarschuwingen voor het energieplan.",
+        "fr": "Premiere version prete pour publication avec installation source EOS geree, lien tableau de bord, health polling et avertissements optionnels du plan energetique.",
+        "it": "Prima versione pronta al rilascio con installazione sorgente EOS gestita, link dashboard, health polling e avvisi opzionali del piano energetico.",
+        "es": "Primera version lista para publicar con instalacion gestionada de EOS desde codigo fuente, enlace al panel, health polling y avisos opcionales del plan energetico.",
+        "pl": "Pierwsza wersja gotowa do wydania z zarzadzana instalacja EOS ze zrodel, linkiem do panelu, health polling i opcjonalnymi ostrzezeniami planu energii.",
+        "uk": "Перший релізний адаптер з керованою установкою EOS з джерел, посиланням на панель, health polling та необовязковими попередженнями енергоплану.",
+        "zh-cn": "首个可发布版本，支持托管 EOS 源码安装、仪表盘链接、健康轮询以及可选能源计划警告。"
       }
     },
     "titleLang": {
