@@ -282,3 +282,5 @@ Then start the adapter again.
 ## License
 
 MIT
+
+Copyright (c) 2026 TheBam1990

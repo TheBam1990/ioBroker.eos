@@ -16,7 +16,10 @@
             "de": "Adapter aktivieren"
           },
           "xs": 12,
-          "sm": 6
+          "sm": 6,
+          "md": 6,
+          "lg": 6,
+          "xl": 6
         },
         "installMode": {
           "type": "select",
@@ -39,7 +42,10 @@
             }
           ],
           "xs": 12,
-          "sm": 6
+          "sm": 6,
+          "md": 6,
+          "lg": 6,
+          "xl": 6
         },
         "autoInstall": {
           "type": "checkbox",
@@ -48,7 +54,10 @@
             "de": "EOS-Container automatisch installieren"
           },
           "xs": 12,
-          "sm": 6
+          "sm": 6,
+          "md": 6,
+          "lg": 6,
+          "xl": 6
         },
         "autoStart": {
           "type": "checkbox",
@@ -57,7 +66,10 @@
             "de": "EOS automatisch starten"
           },
           "xs": 12,
-          "sm": 6
+          "sm": 6,
+          "md": 6,
+          "lg": 6,
+          "xl": 6
         },
         "dockerImage": {
           "type": "text",
@@ -66,7 +78,10 @@
             "de": "Docker-Image"
           },
           "xs": 12,
-          "sm": 6
+          "sm": 6,
+          "md": 6,
+          "lg": 6,
+          "xl": 6
         },
         "dockerContainerName": {
           "type": "text",
@@ -75,7 +90,10 @@
             "de": "Container-Name"
           },
           "xs": 12,
-          "sm": 6
+          "sm": 6,
+          "md": 6,
+          "lg": 6,
+          "xl": 6
         },
         "sourceRepo": {
           "type": "text",
@@ -84,7 +102,10 @@
             "de": "EOS Git-Repository"
           },
           "xs": 12,
-          "sm": 6
+          "sm": 6,
+          "md": 6,
+          "lg": 6,
+          "xl": 6
         },
         "sourceDirectory": {
           "type": "text",
@@ -93,7 +114,10 @@
             "de": "EOS Source-Verzeichnis"
           },
           "xs": 12,
-          "sm": 6
+          "sm": 6,
+          "md": 6,
+          "lg": 6,
+          "xl": 6
         },
         "pythonCommand": {
           "type": "text",
@@ -106,7 +130,10 @@
             "de": "Wird fuer die verwaltete Source-Installation genutzt. EOS benoetigt Python 3.11 oder neuer."
           },
           "xs": 12,
-          "sm": 6
+          "sm": 6,
+          "md": 6,
+          "lg": 6,
+          "xl": 6
         },
         "apiPort": {
           "type": "number",
@@ -117,7 +144,10 @@
           "min": 1,
           "max": 65535,
           "xs": 12,
-          "sm": 6
+          "sm": 6,
+          "md": 6,
+          "lg": 6,
+          "xl": 6
         },
         "dashboardPort": {
           "type": "number",
@@ -128,7 +158,10 @@
           "min": 1,
           "max": 65535,
           "xs": 12,
-          "sm": 6
+          "sm": 6,
+          "md": 6,
+          "lg": 6,
+          "xl": 6
         },
         "baseUrl": {
           "type": "text",
@@ -141,7 +174,10 @@
             "de": "Wird im externen Modus genutzt, zum Beispiel http://192.168.2.10:8503."
           },
           "xs": 12,
-          "sm": 12
+          "sm": 12,
+          "md": 12,
+          "lg": 12,
+          "xl": 12
         }
       }
     },
@@ -160,7 +196,10 @@
           },
           "min": 10,
           "xs": 12,
-          "sm": 6
+          "sm": 6,
+          "md": 6,
+          "lg": 6,
+          "xl": 6
         },
         "requestTimeoutMs": {
           "type": "number",
@@ -170,7 +209,10 @@
           },
           "min": 1000,
           "xs": 12,
-          "sm": 6
+          "sm": 6,
+          "md": 6,
+          "lg": 6,
+          "xl": 6
         },
         "pollHealth": {
           "type": "checkbox",
@@ -179,7 +221,10 @@
             "de": "Health abrufen"
           },
           "xs": 12,
-          "sm": 4
+          "sm": 4,
+          "md": 4,
+          "lg": 4,
+          "xl": 4
         },
         "pollPlan": {
           "type": "checkbox",
@@ -188,7 +233,10 @@
             "de": "Energieplan abrufen"
           },
           "xs": 12,
-          "sm": 4
+          "sm": 4,
+          "md": 4,
+          "lg": 4,
+          "xl": 4
         },
         "pollSolution": {
           "type": "checkbox",
@@ -197,7 +245,10 @@
             "de": "Optimierungsloesung abrufen"
           },
           "xs": 12,
-          "sm": 4
+          "sm": 4,
+          "md": 4,
+          "lg": 4,
+          "xl": 4
         },
         "pollPredictionKeys": {
           "type": "checkbox",
@@ -206,7 +257,10 @@
             "de": "Prediction-Keys abrufen"
           },
           "xs": 12,
-          "sm": 4
+          "sm": 4,
+          "md": 4,
+          "lg": 4,
+          "xl": 4
         },
         "pollMeasurementKeys": {
           "type": "checkbox",
@@ -215,7 +269,10 @@
             "de": "Measurement-Keys abrufen"
           },
           "xs": 12,
-          "sm": 4
+          "sm": 4,
+          "md": 4,
+          "lg": 4,
+          "xl": 4
         },
         "autoUpdatePredictions": {
           "type": "checkbox",
@@ -224,7 +281,10 @@
             "de": "Prediction-Update vor Polling ausloesen"
           },
           "xs": 12,
-          "sm": 4
+          "sm": 4,
+          "md": 4,
+          "lg": 4,
+          "xl": 4
         },
         "predictionKeys": {
           "type": "text",
@@ -237,7 +297,10 @@
             "de": "Komma- oder zeilengetrennte Keys fuer /v1/prediction/list."
           },
           "xs": 12,
-          "sm": 6
+          "sm": 6,
+          "md": 6,
+          "lg": 6,
+          "xl": 6
         },
         "measurementKeys": {
           "type": "text",
@@ -250,7 +313,10 @@
             "de": "Komma- oder zeilengetrennte Keys fuer /v1/measurement/series."
           },
           "xs": 12,
-          "sm": 6
+          "sm": 6,
+          "md": 6,
+          "lg": 6,
+          "xl": 6
         }
       }
     },
@@ -278,7 +344,12 @@
                 "de": "Aktiv"
               },
               "default": true,
-              "width": "70px"
+              "width": "70px",
+              "xs": 12,
+              "sm": 6,
+              "md": 6,
+              "lg": 6,
+              "xl": 6
             },
             {
               "attr": "resourceId",
@@ -287,7 +358,12 @@
                 "en": "Resource ID",
                 "de": "Resource ID"
               },
-              "width": "220px"
+              "width": "220px",
+              "xs": 12,
+              "sm": 6,
+              "md": 6,
+              "lg": 6,
+              "xl": 6
             },
             {
               "attr": "actuatorId",
@@ -296,9 +372,17 @@
                 "en": "Actuator ID",
                 "de": "Actuator ID"
               },
-              "width": "220px"
+              "width": "220px",
+              "xs": 12,
+              "sm": 6,
+              "md": 6,
+              "lg": 6,
+              "xl": 6
             }
-          ]
+          ],
+          "md": 12,
+          "lg": 12,
+          "xl": 12
         }
       }
     },
@@ -326,7 +410,12 @@
                 "de": "Aktiv"
               },
               "default": true,
-              "width": "70px"
+              "width": "70px",
+              "xs": 12,
+              "sm": 6,
+              "md": 6,
+              "lg": 6,
+              "xl": 6
             },
             {
               "attr": "source",
@@ -335,7 +424,12 @@
                 "en": "ioBroker state",
                 "de": "ioBroker-Datenpunkt"
               },
-              "width": "360px"
+              "width": "360px",
+              "xs": 12,
+              "sm": 6,
+              "md": 6,
+              "lg": 6,
+              "xl": 6
             },
             {
               "attr": "key",
@@ -344,9 +438,17 @@
                 "en": "EOS measurement key",
                 "de": "EOS Measurement-Key"
               },
-              "width": "260px"
+              "width": "260px",
+              "xs": 12,
+              "sm": 6,
+              "md": 6,
+              "lg": 6,
+              "xl": 6
             }
-          ]
+          ],
+          "md": 12,
+          "lg": 12,
+          "xl": 12
         }
       }
     }

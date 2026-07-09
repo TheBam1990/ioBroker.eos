@@ -4,69 +4,44 @@
     "version": "0.1.13",
     "news": {
       "0.1.13": {
-        "en": "Treat unconfigured EOS plan and optimization endpoints as optional polling warnings instead of connection failures.",
-        "de": "Behandelt unkonfigurierte EOS-Plan- und Optimierungsendpunkte als optionale Polling-Warnungen statt als Verbindungsfehler."
-      },
-      "0.1.12": {
-        "en": "Handle PEP 668 Python environments during managed pip bootstrap and target dependency installation.",
-        "de": "Beruecksichtigt PEP-668-Python-Umgebungen beim verwalteten pip-Bootstrap und der target-Abhaengigkeitsinstallation."
-      },
-      "0.1.11": {
-        "en": "Bootstrap pip automatically in managed source mode when Python is installed without pip.",
-        "de": "Installiert pip im verwalteten Source-Modus automatisch nach, wenn Python ohne pip installiert ist."
-      },
-      "0.1.10": {
-        "en": "Stream managed source dependency installation output to managed.lastProcessOutput for live troubleshooting.",
-        "de": "Schreibt die Ausgabe der verwalteten Source-Abhaengigkeitsinstallation laufend nach managed.lastProcessOutput."
-      },
-      "0.1.9": {
-        "en": "Install only EOS runtime dependencies from pyproject.toml and run EOS directly from source to avoid slow local package builds.",
-        "de": "Installiert nur die EOS-Laufzeitabhaengigkeiten aus pyproject.toml und startet EOS direkt aus dem Source-Code, um langsame lokale Paket-Builds zu vermeiden."
-      },
-      "0.1.8": {
-        "en": "Switch managed source installation from virtualenv to pip target installation, add EOS dashboard instance link and update the adapter icon.",
-        "de": "Stellt die verwaltete Source-Installation von Virtualenv auf pip-target um, ergaenzt den EOS-Dashboard-Instanzlink und aktualisiert das Adapter-Icon."
-      },
-      "0.1.7": {
-        "en": "Use a dedicated .venv-iobroker environment in managed source mode to avoid stale upstream virtual environments.",
-        "de": "Nutzt im verwalteten Source-Modus eine eigene .venv-iobroker-Umgebung, um haengende alte Virtualenvs zu umgehen."
-      },
-      "0.1.6": {
-        "en": "Recreate the Python virtual environment in managed source mode to recover from incomplete previous setup attempts.",
-        "de": "Erstellt die Python-Virtualenv im verwalteten Source-Modus neu, um unvollstaendige vorherige Setup-Versuche zu bereinigen."
-      },
-      "0.1.5": {
-        "en": "Use an installation marker for managed source mode so incomplete source checkouts are installed correctly.",
-        "de": "Nutzt im verwalteten Source-Modus einen Installationsmarker, damit unvollstaendige Checkouts korrekt installiert werden."
-      },
-      "0.1.4": {
-        "en": "Write managed source process output to log files and expose the tail in managed.lastProcessOutput.",
-        "de": "Schreibt die Ausgabe des verwalteten Source-Prozesses in Logdateien und stellt den Auszug in managed.lastProcessOutput bereit."
-      },
-      "0.1.3": {
-        "en": "Capture managed source process output for troubleshooting EOS startup failures.",
-        "de": "Speichert die Ausgabe des verwalteten Source-Prozesses zur Diagnose von EOS-Startfehlern."
-      },
-      "0.1.2": {
-        "en": "Add managed source installation via Git and Python virtual environment for hosts without Docker.",
-        "de": "Fuegt eine verwaltete Source-Installation per Git und Python-Virtualenv fuer Hosts ohne Docker hinzu."
-      },
-      "0.1.1": {
-        "en": "Keep the adapter instance running when managed Docker setup fails and expose the setup error in info.lastError.",
-        "de": "Haelt die Adapterinstanz aktiv, wenn das verwaltete Docker-Setup fehlschlaegt, und meldet den Fehler in info.lastError."
-      },
-      "0.1.0": {
-        "en": "Initial adapter for Akkudoktor EOS with managed Docker installation, API polling, predictions, measurements and resource status integration.",
-        "de": "Erste Adapterversion fuer Akkudoktor EOS mit verwalteter Docker-Installation, API-Polling, Predictions, Measurements und Resource-Status-Integration."
+        "en": "Initial release-ready adapter with managed EOS source installation, dashboard link, health polling and optional energy plan warnings.",
+        "de": "Erste releasefertige Adapterversion mit verwalteter EOS-Source-Installation, Dashboard-Link, Health-Polling und optionalen Energieplan-Warnungen.",
+        "ru": "Initial release-ready adapter with managed EOS source installation, dashboard link, health polling and optional energy plan warnings.",
+        "pt": "Initial release-ready adapter with managed EOS source installation, dashboard link, health polling and optional energy plan warnings.",
+        "nl": "Initial release-ready adapter with managed EOS source installation, dashboard link, health polling and optional energy plan warnings.",
+        "fr": "Initial release-ready adapter with managed EOS source installation, dashboard link, health polling and optional energy plan warnings.",
+        "it": "Initial release-ready adapter with managed EOS source installation, dashboard link, health polling and optional energy plan warnings.",
+        "es": "Initial release-ready adapter with managed EOS source installation, dashboard link, health polling and optional energy plan warnings.",
+        "pl": "Initial release-ready adapter with managed EOS source installation, dashboard link, health polling and optional energy plan warnings.",
+        "uk": "Initial release-ready adapter with managed EOS source installation, dashboard link, health polling and optional energy plan warnings.",
+        "zh-cn": "Initial release-ready adapter with managed EOS source installation, dashboard link, health polling and optional energy plan warnings."
       }
     },
     "titleLang": {
       "en": "Akkudoktor EOS",
-      "de": "Akkudoktor EOS"
+      "de": "Akkudoktor EOS",
+      "ru": "Akkudoktor EOS",
+      "pt": "Akkudoktor EOS",
+      "nl": "Akkudoktor EOS",
+      "fr": "Akkudoktor EOS",
+      "it": "Akkudoktor EOS",
+      "es": "Akkudoktor EOS",
+      "pl": "Akkudoktor EOS",
+      "uk": "Akkudoktor EOS",
+      "zh-cn": "Akkudoktor EOS"
     },
     "desc": {
       "en": "Installs and connects Akkudoktor EOS energy manager and exposes its energy plans, predictions, measurements and resource states in ioBroker.",
-      "de": "Installiert und verbindet den Akkudoktor EOS Energiemanager und stellt Energieplaene, Predictions, Measurements und Resource-Status in ioBroker bereit."
+      "de": "Installiert und verbindet den Akkudoktor EOS Energiemanager und stellt Energieplaene, Predictions, Measurements und Resource-Status in ioBroker bereit.",
+      "ru": "Installs and connects Akkudoktor EOS energy manager and exposes its energy plans, predictions, measurements and resource states in ioBroker.",
+      "pt": "Installs and connects Akkudoktor EOS energy manager and exposes its energy plans, predictions, measurements and resource states in ioBroker.",
+      "nl": "Installs and connects Akkudoktor EOS energy manager and exposes its energy plans, predictions, measurements and resource states in ioBroker.",
+      "fr": "Installs and connects Akkudoktor EOS energy manager and exposes its energy plans, predictions, measurements and resource states in ioBroker.",
+      "it": "Installs and connects Akkudoktor EOS energy manager and exposes its energy plans, predictions, measurements and resource states in ioBroker.",
+      "es": "Installs and connects Akkudoktor EOS energy manager and exposes its energy plans, predictions, measurements and resource states in ioBroker.",
+      "pl": "Installs and connects Akkudoktor EOS energy manager and exposes its energy plans, predictions, measurements and resource states in ioBroker.",
+      "uk": "Installs and connects Akkudoktor EOS energy manager and exposes its energy plans, predictions, measurements and resource states in ioBroker.",
+      "zh-cn": "Installs and connects Akkudoktor EOS energy manager and exposes its energy plans, predictions, measurements and resource states in ioBroker."
     },
     "authors": [
       "TheBam1990"
@@ -85,7 +60,6 @@
       "license": "MIT"
     },
     "platform": "Javascript/Node.js",
-    "main": "main.js",
     "icon": "eos.svg",
     "localLinks": {
       "_default": {
@@ -99,7 +73,7 @@
     "mode": "daemon",
     "type": "energy",
     "tier": 3,
-    "compact": true,
+    "compact": false,
     "connectionType": "local",
     "dataSource": "poll",
     "adminUI": {
@@ -107,12 +81,12 @@
     },
     "dependencies": [
       {
-        "js-controller": ">=5.0.0"
+        "js-controller": ">=6.0.11"
       }
     ],
     "globalDependencies": [
       {
-        "admin": ">=6.0.0"
+        "admin": ">=7.6.20"
       }
     ]
   },
