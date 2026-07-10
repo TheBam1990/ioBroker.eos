@@ -587,7 +587,7 @@
             },
             {
               "attr": "body",
-              "type": "textarea",
+              "type": "text",
               "title": {
                 "en": "JSON body",
                 "de": "JSON-Body"
