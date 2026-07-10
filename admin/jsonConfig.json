@@ -50,8 +50,12 @@
         "autoInstall": {
           "type": "checkbox",
           "label": {
-            "en": "Install EOS container automatically",
-            "de": "EOS-Container automatisch installieren"
+            "en": "Install EOS automatically",
+            "de": "EOS automatisch installieren"
+          },
+          "help": {
+            "en": "Disabled by default. Enable this only if the adapter should download and install EOS on this host.",
+            "de": "Standardmaessig deaktiviert. Nur aktivieren, wenn der Adapter EOS auf diesem Host herunterladen und installieren soll."
           },
           "xs": 12,
           "sm": 6,
@@ -439,6 +443,156 @@
                 "de": "EOS Measurement-Key"
               },
               "width": "260px",
+              "xs": 12,
+              "sm": 6,
+              "md": 6,
+              "lg": 6,
+              "xl": 6
+            }
+          ],
+          "md": 12,
+          "lg": 12,
+          "xl": 12
+        }
+      }
+    },
+    "customApi": {
+      "type": "panel",
+      "label": {
+        "en": "Custom API",
+        "de": "Custom API"
+      },
+      "items": {
+        "customApiRequests": {
+          "type": "table",
+          "label": {
+            "en": "Additional EOS API requests",
+            "de": "Weitere EOS API-Abfragen"
+          },
+          "help": {
+            "en": "Use this table to expose EOS endpoints that are not built into the adapter. GET requests can be polled automatically. Every row also creates an execute button below custom.<id>.",
+            "de": "Hier koennen EOS-Endpunkte eingebunden werden, die nicht fest im Adapter enthalten sind. GET-Abfragen koennen automatisch gepollt werden. Jede Zeile erzeugt zusaetzlich einen Execute-Button unter custom.<id>."
+          },
+          "xs": 12,
+          "sm": 12,
+          "items": [
+            {
+              "attr": "enabled",
+              "type": "checkbox",
+              "title": {
+                "en": "Active",
+                "de": "Aktiv"
+              },
+              "default": true,
+              "width": "70px",
+              "xs": 12,
+              "sm": 6,
+              "md": 6,
+              "lg": 6,
+              "xl": 6
+            },
+            {
+              "attr": "id",
+              "type": "text",
+              "title": {
+                "en": "State ID",
+                "de": "Datenpunkt-ID"
+              },
+              "width": "180px",
+              "xs": 12,
+              "sm": 6,
+              "md": 6,
+              "lg": 6,
+              "xl": 6
+            },
+            {
+              "attr": "name",
+              "type": "text",
+              "title": {
+                "en": "Name",
+                "de": "Name"
+              },
+              "width": "220px",
+              "xs": 12,
+              "sm": 6,
+              "md": 6,
+              "lg": 6,
+              "xl": 6
+            },
+            {
+              "attr": "method",
+              "type": "select",
+              "title": {
+                "en": "Method",
+                "de": "Methode"
+              },
+              "options": [
+                {
+                  "label": "GET",
+                  "value": "GET"
+                },
+                {
+                  "label": "POST",
+                  "value": "POST"
+                },
+                {
+                  "label": "PUT",
+                  "value": "PUT"
+                },
+                {
+                  "label": "PATCH",
+                  "value": "PATCH"
+                },
+                {
+                  "label": "DELETE",
+                  "value": "DELETE"
+                }
+              ],
+              "default": "GET",
+              "width": "120px",
+              "xs": 12,
+              "sm": 6,
+              "md": 6,
+              "lg": 6,
+              "xl": 6
+            },
+            {
+              "attr": "path",
+              "type": "text",
+              "title": {
+                "en": "API path",
+                "de": "API-Pfad"
+              },
+              "width": "360px",
+              "xs": 12,
+              "sm": 6,
+              "md": 6,
+              "lg": 6,
+              "xl": 6
+            },
+            {
+              "attr": "poll",
+              "type": "checkbox",
+              "title": {
+                "en": "Poll GET",
+                "de": "GET pollen"
+              },
+              "default": true,
+              "width": "90px",
+              "xs": 12,
+              "sm": 6,
+              "md": 6,
+              "lg": 6,
+              "xl": 6
+            },
+            {
+              "attr": "body",
+              "type": "textarea",
+              "title": {
+                "en": "JSON body",
+                "de": "JSON-Body"
+              },
+              "width": "360px",
               "xs": 12,
               "sm": 6,
               "md": 6,

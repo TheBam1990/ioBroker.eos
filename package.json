@@ -11,7 +11,8 @@
     "io-package.json",
     "LICENSE",
     "main.js",
-    "README.md"
+    "README.md",
+    "README.de.md"
   ],
   "keywords": [
     "ioBroker",

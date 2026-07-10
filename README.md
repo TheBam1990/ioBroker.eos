@@ -1,14 +1,18 @@
 # ioBroker Akkudoktor EOS Adapter
 
 This adapter installs and connects the Akkudoktor EOS energy manager from ioBroker.
-EOS can be installed automatically by the adapter or connected as an already running external service.
+EOS can be installed by the adapter after explicit user confirmation or connected as an already running external service.
+
+German documentation is available here: [README.de.md](README.de.md).
 
 The default mode is `Managed source/Python installation`. This mode was chosen because it works on hosts without Docker.
 The adapter downloads the EOS source code, installs the required Python runtime packages into a private adapter directory and starts EOS from ioBroker.
 
+Important: automatic EOS installation is disabled by default. A new instance does not immediately download or install EOS. Enable `Install EOS automatically` or press `commands.install` only after checking the host requirements below.
+
 ## Features
 
-- Automatic EOS installation from the official Akkudoktor EOS Git repository.
+- Optional EOS installation from the official Akkudoktor EOS Git repository after user confirmation.
 - Automatic pip bootstrap if the host has Python but no `pip` module.
 - PEP 668 handling for Debian/Ubuntu Python installations.
 - Private Python dependency directory `.iobroker-deps`; no EOS Python packages are installed into the ioBroker Node.js directory.
@@ -18,9 +22,25 @@ The adapter downloads the EOS source code, installs the required Python runtime 
 - Health polling with `info.connection`.
 - Raw JSON states for health, energy plan, optimization solution, predictions, measurements and resource statuses.
 - Optional mapping from ioBroker states into EOS measurements.
+- Custom EOS API requests for additional data points and functions that are not built into the adapter yet.
 - Manual command states for install, start, stop, restart, refresh and prediction update.
 
 ## Requirements
+
+### Recommended host size
+
+EOS is a Python application with many scientific and web dependencies. The first managed source installation can be heavy because packages such as `numpy`, `scipy`, `pandas`, `matplotlib`, `h5py`, `fastapi` and related dependencies are downloaded and installed.
+
+Recommended minimum for managed source mode:
+
+| Resource | Recommendation |
+| --- | --- |
+| CPU | 2 cores or more |
+| Memory | 2 GB RAM minimum, 4 GB RAM recommended |
+| Disk space | At least 2 GB free for source, dependencies and logs |
+| Network | Stable internet access to GitHub and PyPI during installation |
+
+Very small hosts with about 1 GB RAM can install slowly, swap heavily or become temporarily unresponsive during the first installation. For weak systems, use the external mode and run EOS on a stronger host.
 
 ### Managed source mode
 
@@ -50,6 +70,21 @@ iobroker-eos.stdout.log
 iobroker-eos.stderr.log
 ```
 
+### Installation duration
+
+The first managed source installation usually takes several minutes. On a typical small x64 VM it may take about 5 to 15 minutes. On weak hosts, slow SD cards or slow internet connections it can take 20 minutes or longer.
+
+During this time the adapter:
+
+1. Clones or updates the EOS Git repository.
+2. Checks whether Python and pip are usable.
+3. Bootstraps pip if needed.
+4. Installs EOS Python dependencies into `.iobroker-deps`.
+5. Writes the installation marker.
+6. Starts the EOS API and dashboard if automatic start is enabled.
+
+The adapter does not install operating system packages such as `git` or `python3`. These must already exist on the ioBroker host.
+
 ### Managed Docker mode
 
 Docker mode needs a working `docker` command on the ioBroker host.
@@ -76,11 +111,13 @@ The Admin instance link opens the dashboard port.
 
 1. Install the adapter in ioBroker.
 2. Create or start instance `eos.0`.
-3. Keep `EOS mode` set to `Managed source/Python installation`.
-4. Keep `Install EOS automatically` and `Start EOS automatically` enabled.
-5. Wait for the first installation. It can take several minutes because EOS has many Python dependencies.
-6. Check `eos.0.info.connection`.
-7. Open the instance link in ioBroker Admin or browse to `http://<ioBroker-IP>:8504`.
+3. Check that the host meets the recommended size and system requirements.
+4. Keep `EOS mode` set to `Managed source/Python installation` or choose Docker/external mode.
+5. Enable `Install EOS automatically` if the adapter should install EOS on this host, or leave it disabled and press `eos.0.commands.install` later.
+6. Keep `Start EOS automatically` enabled if EOS should start after installation and on adapter start.
+7. Wait for the first installation. It can take several minutes because EOS has many Python dependencies.
+8. Check `eos.0.info.connection`.
+9. Open the instance link in ioBroker Admin or browse to `http://<ioBroker-IP>:8504`.
 
 During first installation, watch:
 
@@ -106,7 +143,7 @@ eos.0.info.connection = true
 | --- | --- |
 | `Enable adapter` | Enables the adapter logic. |
 | `EOS mode` | Select `Managed source/Python installation`, `Managed Docker installation` or `External EOS server`. |
-| `Install EOS automatically` | Installs EOS when the managed installation is missing. |
+| `Install EOS automatically` | Disabled by default. Installs EOS when the managed installation is missing. Enable only after checking the host requirements. |
 | `Start EOS automatically` | Starts EOS when the adapter starts. |
 | `EOS Git repository` | Git repository used by managed source mode. Default: `https://github.com/Akkudoktor-EOS/EOS.git`. |
 | `EOS source directory` | Directory for the managed EOS checkout and private dependency directory. |
@@ -167,6 +204,32 @@ PUT /v1/measurement/value
 
 Non-numeric values are ignored and logged.
 
+### Custom EOS API Requests
+
+EOS may expose more API endpoints than the adapter has built-in states for. The `Custom API` tab can be used to add these endpoints without changing the adapter code.
+
+Each row creates states below:
+
+```text
+eos.0.custom.<id>.execute
+eos.0.custom.<id>.raw
+eos.0.custom.<id>.lastError
+eos.0.custom.<id>.lastUpdate
+```
+
+JSON responses are also flattened into readable primitive states below `eos.0.custom.<id>.*` where possible.
+
+| Field | Description |
+| --- | --- |
+| `State ID` | ioBroker-safe identifier below `custom`. |
+| `Name` | Display name for the channel. |
+| `Method` | HTTP method: `GET`, `POST`, `PUT`, `PATCH` or `DELETE`. |
+| `API path` | EOS API path, for example `/v1/health` or `/v1/prediction/keys`. |
+| `Poll GET` | Polls `GET` requests automatically on the adapter polling interval. |
+| `JSON body` | Optional JSON body for non-GET requests. |
+
+This makes it possible to expose data and functions that are also used by Home Assistant, Node-RED or the EOS dashboard, as long as the function is available through the local EOS HTTP API.
+
 ## States
 
 ### Information
@@ -191,6 +254,15 @@ Non-numeric values are ignored and logged.
 | `managed.dashboardUrl` | Dashboard URL from the adapter perspective. |
 | `managed.lastAction` | Current or last installer/start action. |
 | `managed.lastProcessOutput` | Last pip/EOS process output for troubleshooting. |
+
+### Custom API
+
+| State | Meaning |
+| --- | --- |
+| `custom.<id>.execute` | Executes the configured EOS API request. |
+| `custom.<id>.raw` | Raw JSON/text response from EOS. |
+| `custom.<id>.lastError` | Last request error. |
+| `custom.<id>.lastUpdate` | Timestamp of the last successful request. |
 
 ### Commands
 

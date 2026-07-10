@@ -32,7 +32,7 @@ class EosAdapter extends utils.Adapter {
             enabled: this.config.enabled !== false,
             installMode: String(this.config.installMode || "managed-docker"),
             baseUrl: String(this.config.baseUrl || "http://127.0.0.1:8503").replace(/\/+$/, ""),
-            autoInstall: this.config.autoInstall !== false,
+            autoInstall: this.config.autoInstall === true || this.config.autoInstall === "true",
             autoStart: this.config.autoStart !== false,
             dockerImage: String(this.config.dockerImage || "akkudoktor/eos:latest"),
             dockerContainerName: String(this.config.dockerContainerName || "iobroker-eos"),
@@ -53,12 +53,14 @@ class EosAdapter extends utils.Adapter {
             measurementKeys: this.parseList(this.config.measurementKeys),
             resourceStatuses: this.parseRows(this.config.resourceStatuses),
             measurementMappings: this.parseRows(this.config.measurementMappings),
+            customApiRequests: this.parseRows(this.config.customApiRequests),
         };
     }
 
     async onReady() {
         await this.initObjects();
         await this.subscribeStatesAsync("commands.*");
+        await this.subscribeStatesAsync("custom.*.execute");
         await this.setStateAsync("info.connection", false, true);
         await this.setStateAsync("info.lastError", "", true);
 
@@ -143,6 +145,9 @@ class EosAdapter extends utils.Adapter {
         await this.ensureState("measurements.keys", "Available measurement keys", "string", "json", true, false);
 
         await this.setObjectNotExistsAsync("resources", { type: "channel", common: { name: "Resources" }, native: {} });
+
+        await this.setObjectNotExistsAsync("custom", { type: "channel", common: { name: "Custom EOS API requests" }, native: {} });
+        for (const row of this.cfg.customApiRequests) await this.ensureCustomApiObjects(row);
     }
 
     async ensureState(id, name, type, role, read, write, unit = undefined) {
@@ -174,6 +179,11 @@ class EosAdapter extends utils.Adapter {
             for (const key of cfg.predictionKeys) await this.pollOptional(() => this.pollPrediction(key), warnings);
             for (const key of cfg.measurementKeys) await this.pollOptional(() => this.pollMeasurement(key), warnings);
             for (const row of cfg.resourceStatuses) await this.pollOptional(() => this.pollResourceStatus(row), warnings);
+            for (const row of cfg.customApiRequests) {
+                if (this.rowEnabled(row) && row.poll !== false && row.poll !== "false" && this.customMethod(row) === "GET") {
+                    await this.pollOptional(() => this.executeCustomApiRequest(row), warnings);
+                }
+            }
             await this.setStateAsync("info.connection", true, true);
             await this.setStateAsync("info.lastError", warnings.join(" | "), true);
             await this.setStateAsync("info.lastUpdate", new Date().toISOString(), true);
@@ -211,7 +221,12 @@ class EosAdapter extends utils.Adapter {
             await this.refreshManagedStatus();
             const installed = (await this.getStateAsync("managed.installed"))?.val === true;
             const running = (await this.getStateAsync("managed.running"))?.val === true;
-            if (!installed && cfg.autoInstall) await this.installManagedSource();
+            if (!installed && cfg.autoInstall) {
+                await this.installManagedSource();
+            } else if (!installed) {
+                await this.setStateAsync("managed.lastAction", "EOS source is not installed. Enable automatic installation or press commands.install.", true);
+                return;
+            }
             if (!running && cfg.autoStart) await this.startManagedSource();
             await this.refreshManagedStatus();
             if (cfg.autoStart) await this.waitForManagedHealth();
@@ -224,7 +239,12 @@ class EosAdapter extends utils.Adapter {
         const installed = (await this.getStateAsync("managed.installed"))?.val === true;
         const running = (await this.getStateAsync("managed.running"))?.val === true;
 
-        if (!installed && cfg.autoInstall) await this.installManagedDocker();
+        if (!installed && cfg.autoInstall) {
+            await this.installManagedDocker();
+        } else if (!installed) {
+            await this.setStateAsync("managed.lastAction", "EOS container is not installed. Enable automatic installation or press commands.install.", true);
+            return;
+        }
         if (!running && cfg.autoStart) await this.startManagedDocker();
         await this.refreshManagedStatus();
         if (cfg.autoStart) await this.waitForManagedHealth();
@@ -667,6 +687,16 @@ class EosAdapter extends utils.Adapter {
             return;
         }
 
+        for (const row of this.cfg.customApiRequests) {
+            if (!this.rowEnabled(row)) continue;
+            const requestId = this.customRequestId(row);
+            if (id === `${this.namespace}.custom.${requestId}.execute`) {
+                await this.setStateAsync(`custom.${requestId}.execute`, false, true);
+                await this.executeCustomApiRequest(row);
+                return;
+            }
+        }
+
         for (const mapping of this.subscribedMeasurementMappings) {
             if (id === mapping.source) {
                 await this.writeMeasurementValue(mapping, state.val);
@@ -701,6 +731,43 @@ class EosAdapter extends utils.Adapter {
         });
         await this.requestJson("PUT", `/v1/measurement/value?${query.toString()}`);
         this.log.debug(`Sent EOS measurement ${mapping.key}=${numericValue}`);
+    }
+
+    async ensureCustomApiObjects(row) {
+        if (!this.rowEnabled(row) || !row.path) return;
+        const requestId = this.customRequestId(row);
+        const name = String(row.name || row.id || row.path).trim();
+        await this.setObjectNotExistsAsync(`custom.${requestId}`, {
+            type: "channel",
+            common: { name },
+            native: {
+                method: this.customMethod(row),
+                path: this.customPath(row),
+            },
+        });
+        await this.ensureState(`custom.${requestId}.execute`, "Execute EOS API request", "boolean", "button", true, true);
+        await this.ensureState(`custom.${requestId}.raw`, "Raw EOS API response", "string", "json", true, false);
+        await this.ensureState(`custom.${requestId}.lastError`, "Last EOS API error", "string", "text", true, false);
+        await this.ensureState(`custom.${requestId}.lastUpdate`, "Last EOS API update", "string", "date", true, false);
+    }
+
+    async executeCustomApiRequest(row) {
+        await this.ensureCustomApiObjects(row);
+        const requestId = this.customRequestId(row);
+        const method = this.customMethod(row);
+        const requestPath = this.customPath(row);
+        const body = this.customBody(row);
+        try {
+            const data = await this.requestJson(method, requestPath, body);
+            await this.setStateAsync(`custom.${requestId}.raw`, JSON.stringify(data), true);
+            await this.setStateAsync(`custom.${requestId}.lastError`, "", true);
+            await this.setStateAsync(`custom.${requestId}.lastUpdate`, new Date().toISOString(), true);
+            if (data !== null && typeof data === "object") await this.writeFlattened(`custom.${requestId}`, data);
+            return data;
+        } catch (error) {
+            await this.setStateAsync(`custom.${requestId}.lastError`, error.message, true);
+            throw error;
+        }
     }
 
     async requestJson(method, path, body = undefined) {
@@ -795,6 +862,35 @@ class EosAdapter extends utils.Adapter {
             return Array.isArray(parsed) ? parsed : [];
         } catch {
             return [];
+        }
+    }
+
+    rowEnabled(row) {
+        return row && row.enabled !== false && row.enabled !== "false";
+    }
+
+    customRequestId(row) {
+        return this.safeId(row.id || row.name || row.path || "request");
+    }
+
+    customMethod(row) {
+        const method = String(row.method || "GET").trim().toUpperCase();
+        return ["GET", "POST", "PUT", "PATCH", "DELETE"].includes(method) ? method : "GET";
+    }
+
+    customPath(row) {
+        const requestPath = String(row.path || "/").trim();
+        return requestPath.startsWith("/") ? requestPath : `/${requestPath}`;
+    }
+
+    customBody(row) {
+        if (!row.body || this.customMethod(row) === "GET") return undefined;
+        const text = String(row.body).trim();
+        if (!text) return undefined;
+        try {
+            return JSON.parse(text);
+        } catch {
+            return text;
         }
     }
 

@@ -107,7 +107,7 @@
     "enabled": true,
     "installMode": "managed-source",
     "baseUrl": "http://127.0.0.1:8503",
-    "autoInstall": true,
+    "autoInstall": false,
     "autoStart": true,
     "dockerImage": "akkudoktor/eos:latest",
     "dockerContainerName": "iobroker-eos",
@@ -127,7 +127,8 @@
     "predictionKeys": "",
     "measurementKeys": "",
     "resourceStatuses": [],
-    "measurementMappings": []
+    "measurementMappings": [],
+    "customApiRequests": []
   },
   "objects": [],
   "instanceObjects": []
