@@ -327,6 +327,10 @@ Then start the adapter again.
 
 ## Changelog
 
+
+### **WORK IN PROGRESS**
+- (ioBroker-Bot) Adapter requires admin >= 7.8.23 now.
+
 ### 0.1.14
 
 - Add signed npm release workflow, compact mode metadata and checker-compatible integration logs.
