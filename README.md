@@ -327,6 +327,12 @@ Then start the adapter again.
 
 ## Changelog
 
+### 0.1.15 (2026-09-11)
+
+- Prevent repeated warning-log flooding when EOS is unavailable.
+- Add exponential polling backoff up to 15 minutes and reset it after recovery.
+- Include nested connection-error causes and the next retry delay in diagnostics.
+
 
 ### **WORK IN PROGRESS**
 - (ioBroker-Bot) Adapter requires admin >= 7.8.23 now.

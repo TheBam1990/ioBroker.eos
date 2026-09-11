@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "eos",
-    "version": "0.1.14",
+    "version": "0.1.15",
     "news": {
+      "0.1.15": {
+        "en": "Reduced log flooding during connection failures with exponential polling backoff and improved error details.",
+        "de": "Reduzierte Logflut bei Verbindungsfehlern durch exponentielle Polling-Pausen und verbesserte Fehlerdetails.",
+        "ru": "Reduced log flooding during connection failures with exponential polling backoff and improved error details.",
+        "pt": "Reduced log flooding during connection failures with exponential polling backoff and improved error details.",
+        "nl": "Reduced log flooding during connection failures with exponential polling backoff and improved error details.",
+        "fr": "Reduced log flooding during connection failures with exponential polling backoff and improved error details.",
+        "it": "Reduced log flooding during connection failures with exponential polling backoff and improved error details.",
+        "es": "Reduced log flooding during connection failures with exponential polling backoff and improved error details.",
+        "pl": "Reduced log flooding during connection failures with exponential polling backoff and improved error details.",
+        "uk": "Reduced log flooding during connection failures with exponential polling backoff and improved error details.",
+        "zh-cn": "Reduced log flooding during connection failures with exponential polling backoff and improved error details."
+      },
       "0.1.14": {
         "en": "Improved repository compliance with npm provenance release workflow, compact mode metadata and checker-compatible integration logs.",
         "de": "Verbesserte Repository-Konformitaet mit npm-Provenance-Release-Workflow, Compact-Mode-Metadaten und checkerkompatiblen Integration-Logs.",

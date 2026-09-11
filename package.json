@@ -1,6 +1,6 @@
 {
   "name": "iobroker.eos",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "ioBroker adapter for Akkudoktor EOS energy manager with managed installation",
   "author": "TheBam1990",
   "homepage": "https://github.com/TheBam1990/ioBroker.eos",
@@ -31,7 +31,7 @@
     "node": ">=22"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^3.4.1"
+    "@iobroker/adapter-core": "^3.4.3"
   },
   "devDependencies": {
     "@alcalzone/release-script": "^5.2.1",

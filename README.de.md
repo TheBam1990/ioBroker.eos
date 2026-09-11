@@ -186,6 +186,14 @@ Adapter stoppen und das verwaltete Source-Verzeichnis entfernen:
 
 Danach die Adapterinstanz wieder starten.
 
+## Aenderungen
+
+### 0.1.15 (2026-09-11)
+
+- Wiederholte Warnmeldungen werden bei nicht erreichbarem EOS deutlich reduziert.
+- Exponentielle Polling-Pausen bis maximal 15 Minuten mit automatischem Reset nach Wiederherstellung.
+- Verbindungsursache und Zeit bis zum naechsten Versuch werden genauer ausgegeben.
+
 ## Lizenz
 
 MIT

@@ -18,6 +18,8 @@ class EosAdapter extends utils.Adapter {
         });
 
         this.pollTimer = null;
+        this.pollFailures = 0;
+        this.pollInProgress = false;
         this.sourceProcess = null;
         this.installProcess = null;
         this.subscribedMeasurementMappings = [];
@@ -78,14 +80,14 @@ class EosAdapter extends utils.Adapter {
             if (this.cfg.installMode === "managed-docker") return;
         }
         await this.subscribeMeasurementMappings();
-        await this.pollOnce();
-        this.pollTimer = this.setInterval(() => void this.pollOnce(), this.cfg.pollIntervalSec * 1000);
+        const success = await this.pollOnce();
+        this.scheduleNextPoll(success);
     }
 
     onUnload(callback) {
         try {
             if (this.pollTimer) {
-                this.clearInterval(this.pollTimer);
+                this.clearTimeout(this.pollTimer);
                 this.pollTimer = null;
             }
             if (this.sourceProcess && !this.sourceProcess.killed) {
@@ -166,6 +168,8 @@ class EosAdapter extends utils.Adapter {
     }
 
     async pollOnce() {
+        if (this.pollInProgress) return false;
+        this.pollInProgress = true;
         const cfg = this.cfg;
         try {
             const warnings = [];
@@ -187,11 +191,48 @@ class EosAdapter extends utils.Adapter {
             await this.setStateAsync("info.connection", true, true);
             await this.setStateAsync("info.lastError", warnings.join(" | "), true);
             await this.setStateAsync("info.lastUpdate", new Date().toISOString(), true);
+            if (this.pollFailures > 0) this.log.info(`EOS connection restored after ${this.pollFailures} failed poll(s)`);
+            this.pollFailures = 0;
+            return true;
         } catch (error) {
+            this.pollFailures++;
+            const reason = this.formatError(error);
             await this.setStateAsync("info.connection", false, true);
-            await this.setStateAsync("info.lastError", error.message, true);
-            this.log.warn(`EOS polling failed: ${error.message}`);
+            await this.setStateAsync("info.lastError", reason, true);
+            const delaySec = Math.round(this.nextPollDelayMs(false) / 1000);
+            const message = `EOS polling failed (${this.pollFailures}. attempt): ${reason}; next attempt in ${delaySec} seconds`;
+            if (this.pollFailures <= 3 || this.pollFailures % 10 === 0) this.log.warn(message);
+            else this.log.debug(message);
+            return false;
+        } finally {
+            this.pollInProgress = false;
         }
+    }
+
+    nextPollDelayMs(success) {
+        const baseMs = this.cfg.pollIntervalSec * 1000;
+        if (success || this.pollFailures === 0) return baseMs;
+        return Math.min(baseMs * (2 ** Math.min(this.pollFailures - 1, 8)), 15 * 60 * 1000);
+    }
+
+    scheduleNextPoll(success) {
+        if (this.pollTimer) this.clearTimeout(this.pollTimer);
+        this.pollTimer = this.setTimeout(async () => {
+            this.pollTimer = null;
+            const nextSuccess = await this.pollOnce();
+            this.scheduleNextPoll(nextSuccess);
+        }, this.nextPollDelayMs(success));
+    }
+
+    formatError(error) {
+        const messages = [];
+        let current = error;
+        while (current && messages.length < 3) {
+            const message = current instanceof Error ? current.message : String(current);
+            if (message && !messages.includes(message)) messages.push(message);
+            current = current instanceof Error ? current.cause : undefined;
+        }
+        return messages.join("; caused by: ") || "Unknown polling error";
     }
 
     async pollOptional(fn, warnings) {
@@ -645,13 +686,15 @@ class EosAdapter extends utils.Adapter {
 
         if (id === `${this.namespace}.commands.refresh`) {
             await this.setStateAsync("commands.refresh", false, true);
-            await this.pollOnce();
+            const success = await this.pollOnce();
+            this.scheduleNextPoll(success);
             return;
         }
         if (id === `${this.namespace}.commands.updatePredictions`) {
             await this.setStateAsync("commands.updatePredictions", false, true);
             await this.updatePredictions();
-            await this.pollOnce();
+            const success = await this.pollOnce();
+            this.scheduleNextPoll(success);
             return;
         }
         if (id === `${this.namespace}.commands.install`) {
